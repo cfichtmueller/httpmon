@@ -1,0 +1,5 @@
+.vscode/
+build/
+httpmon
+main
+*.bak
