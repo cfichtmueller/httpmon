@@ -8,6 +8,7 @@ import (
 	"fmt"
 	"io"
 	"os"
+	"text/tabwriter"
 )
 
 type Out struct {
@@ -39,4 +40,10 @@ func (o *Out) Printf(format string, a ...any) {
 
 func (o *Out) NewCsvWriter(comma rune) *CsvWriter {
 	return newCsvWriter(o.out, comma)
+}
+
+func (o *Out) NewTabwriter() *TabWriter {
+	return &TabWriter{
+		tw: tabwriter.NewWriter(o.out, 10, 1, 3, ' ', tabwriter.TabIndent),
+	}
 }

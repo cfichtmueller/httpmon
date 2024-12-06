@@ -9,6 +9,8 @@ import (
 )
 
 type Cli struct {
+	Csv       bool
+	Batch     bool
 	Formatter Formatter
 	Out       *Out
 }

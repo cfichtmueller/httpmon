@@ -57,7 +57,14 @@ func runMonitor(mcli *cli.Cli, opts monitoropts) error {
 		name = n
 	}
 
-	writer := mcli.Out.NewCsvWriter(';')
+	var writer Writer
+
+	if mcli.Csv {
+		writer = mcli.Out.NewCsvWriter(';')
+	} else {
+		writer = mcli.Out.NewTabwriter()
+	}
+
 	wait := &sync.WaitGroup{}
 	urls := opts.urls
 
@@ -88,6 +95,24 @@ func runMonitor(mcli *cli.Cli, opts monitoropts) error {
 	}
 	if invalid {
 		os.Exit(1)
+	}
+
+	if !mcli.Batch {
+		writer.Write(
+			"MONITOR",
+			"URL",
+			"STATUS",
+			"TIMESTAMP",
+			"CODE",
+			"MESSAGE",
+			"DNS",
+			"CONNECTION",
+			"TLS",
+			"TTFB",
+			"DOWNLOAD",
+			"RESPONSE",
+			"CERT VALIDITY",
+		)
 	}
 
 	for _, u := range urls {

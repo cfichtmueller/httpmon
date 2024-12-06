@@ -12,6 +12,11 @@ import (
 	"github.com/spf13/cobra"
 )
 
+type rootopts struct {
+	batch bool
+	csv   bool
+}
+
 func Execute() error {
 	return newRootCommand().Execute()
 }
@@ -23,10 +28,20 @@ func newRootCommand() *cobra.Command {
 		os.Stderr,
 	)
 
+	opts := rootopts{}
+
 	cmd := &cobra.Command{
 		Use:   "httpmon",
 		Short: "A one-shot tool for monitoring HTTP and HTTPS endpoints.",
+		PersistentPreRun: func(cmd *cobra.Command, args []string) {
+			mcli.Batch = opts.batch
+			mcli.Csv = opts.csv
+		},
 	}
+
+	persistentFlags := cmd.PersistentFlags()
+	persistentFlags.BoolVarP(&opts.batch, "batch", "b", false, "batch mode")
+	persistentFlags.BoolVar(&opts.csv, "csv", false, "produce csv output")
 
 	cmd.AddCommand(
 		monitor.NewCommand(mcli),
