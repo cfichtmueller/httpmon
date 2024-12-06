@@ -23,22 +23,22 @@ A one-shot tool for monitoring HTTP and HTTPS endpoints, designed for simplicity
 
 1. **Monitor one or more URLs:**
    ```bash
-   httpmon [URL]...
+   httpmon monitor [URL]...
    ```
 
 2. **Monitor URLs from a file (one URL per line):**
    ```bash
-   httpmon -f [FILENAME]
+   httpmon monitor -f [FILENAME]
    ```
 
 3. **Set a custom monitor name:**
    ```bash
-   httpmon -n my-monitor [URL]...
+   httpmon monitor -n my-monitor [URL]...
    ```
 
 4. **Save results to a log file:**
    ```bash
-   httpmon [URL]... >> monitoring.log
+   httpmon monitor [URL]... >> monitoring.log
    ```
 
 ### Using with Cron for Continuous Monitoring
@@ -46,7 +46,7 @@ A one-shot tool for monitoring HTTP and HTTPS endpoints, designed for simplicity
 Schedule regular monitoring by combining `httpmon` with `cron`. For example, to run every 5 minutes and append results to `monitoring.log`:
 
 ```bash
-*/5 * * * * /path/to/httpmon https://example.com >> /path/to/monitoring.log
+*/5 * * * * /path/to/httpmon monitor https://example.com >> /path/to/monitoring.log
 ```
 
 ### Output Format
@@ -73,22 +73,22 @@ The results are printed to stdout in CSV format with the following columns:
 
 1. Monitor two URLs:
    ```bash
-   httpmon https://example.com https://example.org
+   httpmon monitor https://example.com https://example.org
    ```
 
 2. Monitor URLs from a file (`targets.txt` with one URL per line):
    ```bash
-   httpmon -f targets.txt
+   httpmon monitor -f targets.txt
    ```
 
 3. Monitor a URL with a custom name:
    ```bash
-   httpmon -n api-monitor https://api.example.com
+   httpmon monitor -n api-monitor https://api.example.com
    ```
 
 4. Append output to a log file:
    ```bash
-   httpmon https://example.com >> monitoring.log
+   httpmon monitor https://example.com >> monitoring.log
    ```
 
 ## Who Should Use This Tool?
