@@ -5,15 +5,19 @@
 package cli
 
 import (
+	"fmt"
 	"strconv"
 	"time"
 )
 
 type Formatter interface {
-	// FormatTimems formats a time as milliseconds
-	FormatTimems(d time.Duration) string
-	// FormatTimes formats a time as seconds
-	FormatTimes(d time.Duration) string
+	FormatInt(i int) string
+	FormatPercentage(p float64) string
+	FormatTime(t time.Time) string
+	// FormatDurationms formats a duration as milliseconds
+	FormatDurationms(d time.Duration) string
+	// FormatDurations formats a duration as seconds
+	FormatDurations(d time.Duration) string
 }
 
 type defaultFormatter struct{}
@@ -22,10 +26,22 @@ func DefaultFormatter() Formatter {
 	return &defaultFormatter{}
 }
 
-func (f *defaultFormatter) FormatTimems(d time.Duration) string {
+func (f *defaultFormatter) FormatInt(i int) string {
+	return strconv.Itoa(i)
+}
+
+func (f *defaultFormatter) FormatPercentage(p float64) string {
+	return fmt.Sprintf("%.2f%%", p)
+}
+
+func (f *defaultFormatter) FormatTime(t time.Time) string {
+	return t.Format(time.RFC3339)
+}
+
+func (f *defaultFormatter) FormatDurationms(d time.Duration) string {
 	return strconv.FormatInt(d.Milliseconds(), 10)
 }
 
-func (f *defaultFormatter) FormatTimes(d time.Duration) string {
+func (f *defaultFormatter) FormatDurations(d time.Duration) string {
 	return strconv.FormatInt(d.Milliseconds()/1000, 10)
 }

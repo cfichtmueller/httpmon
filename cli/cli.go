@@ -12,6 +12,7 @@ type Cli struct {
 	Csv       bool
 	Batch     bool
 	Formatter Formatter
+	In        *In
 	Out       *Out
 }
 
@@ -21,6 +22,7 @@ func New(
 ) *Cli {
 	return &Cli{
 		Formatter: formatter,
+		In:        &In{},
 		Out: &Out{
 			out: out,
 			err: err,

@@ -9,6 +9,7 @@ import (
 
 	"github.com/cfichtmueller/httpmon/cli"
 	"github.com/cfichtmueller/httpmon/cmd/monitor"
+	"github.com/cfichtmueller/httpmon/cmd/summarize"
 	"github.com/spf13/cobra"
 )
 
@@ -45,6 +46,7 @@ func newRootCommand() *cobra.Command {
 
 	cmd.AddCommand(
 		monitor.NewCommand(mcli),
+		summarize.NewCommand(mcli),
 	)
 
 	return cmd
