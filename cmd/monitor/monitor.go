@@ -132,10 +132,10 @@ func pingUrl(w Writer, formatter cli.Formatter, wg *sync.WaitGroup, name, url st
 	monitor := &engine.Monitor{
 		Name:                name,
 		URL:                 url,
-		Retries:             3,
+		Retries:             2,
 		RetryInterval:       10,
 		ConnectTimeout:      5 * time.Second,
-		ResponseTimeout:     10 * time.Second,
+		ResponseTimeout:     5 * time.Second,
 		MaxRedirects:        3,
 		AcceptedStatusCodes: []int{200, 201, 202, 204},
 		HTTPMethod:          "GET",
