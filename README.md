@@ -12,6 +12,7 @@ A one-shot tool for monitoring HTTP and HTTPS endpoints, designed for simplicity
 - Load targets from a file (one URL per line).
 - Customize monitor names for easier identification.
 - Detailed performance metrics for HTTP requests.
+- Summarize monitoring results.
 
 ## Quick Start
 
@@ -38,15 +39,22 @@ A one-shot tool for monitoring HTTP and HTTPS endpoints, designed for simplicity
 
 4. **Save results to a log file:**
    ```bash
-   httpmon monitor [URL]... >> monitoring.log
+   httpmon monitor --csv -b [URL]... >> monitoring.log
    ```
+
+5. **Create summary statistics:**
+   ```bash
+   cat monitoring.log | httmon summarize --csv -i
+   ```
+
+Currently the `summarize` command only support csv formatted logs.
 
 ### Using with Cron for Continuous Monitoring
 
 Schedule regular monitoring by combining `httpmon` with `cron`. For example, to run every 5 minutes and append results to `monitoring.log`:
 
 ```bash
-*/5 * * * * /path/to/httpmon monitor https://example.com >> /path/to/monitoring.log
+*/5 * * * * /path/to/httpmon monitor --csv -b https://example.com >> /path/to/monitoring.log
 ```
 
 ### Output Format
@@ -88,7 +96,7 @@ The results are printed to stdout in CSV format with the following columns:
 
 4. Append output to a log file:
    ```bash
-   httpmon monitor https://example.com >> monitoring.log
+   httpmon monitor -b --csv https://example.com >> monitoring.log
    ```
 
 ## Who Should Use This Tool?
