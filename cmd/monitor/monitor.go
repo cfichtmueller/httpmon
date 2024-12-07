@@ -72,9 +72,9 @@ func runMonitor(mcli *cli.Cli, opts monitoropts) error {
 		return fmt.Errorf("cannot use URLs from file and arguments simultaneously")
 	}
 	if opts.file != "" {
-		b, err := os.ReadFile(os.Args[2])
+		b, err := os.ReadFile(opts.file)
 		if err != nil {
-			return fmt.Errorf("unable to read file %s: %v", os.Args[2], err)
+			return fmt.Errorf("unable to read file %s: %v", opts.file, err)
 		}
 		urls = strings.Split(strings.ReplaceAll(string(b), "\r\n", "\n"), "\n")
 	}
